@@ -17,14 +17,5 @@ phases:
       - docker logout
   post_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-      - echo Pushing the Docker images...
+      - echo Pushing the image...
       - docker push $REPO_URI:$IMAGE_TAG
-      - echo Writing image definitions file...
-      - printf '[{"name":"backendContainer","imageUri":"%s"}]' $REPO_URI:$IMAGE_TAG > backend.json
-      - printf '[{"name":"queueWorkerContainer","imageUri":"%s"}]' $REPO_URI:$IMAGE_TAG > queueWorker.json
-artifacts:
-  files:
-    - backend.json
-    - queueWorker.json

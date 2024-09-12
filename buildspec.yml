@@ -4,7 +4,7 @@ phases:
   pre_build:
     commands:
       - aws --version
-      - REPO_URI=$BACKEND_REPO_URI
+      - REPO_URI=$APP_ECR_URI
       - IMAGE_TAG=rev-$CODEBUILD_RESOLVED_SOURCE_VERSION
   build:
     commands:
@@ -20,7 +20,6 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - echo Pushing the Docker images...
-      - docker push $REPO_URI:latest
       - docker push $REPO_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"backendContainer","imageUri":"%s"}]' $REPO_URI:$IMAGE_TAG > backend.json

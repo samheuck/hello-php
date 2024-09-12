@@ -1,11 +1,5 @@
 version: 0.2
 
-env:
-  parameter-store:
-    DOCKER_HUB_ACCESS_TOKEN: /DOCKER_HUB/ACCESS_TOKEN
-    DOCKER_HUB_USER_NAME: /DOCKER_HUB/USER_NAME
-    COMPOSER_AUTH: COMPOSER_AUTH
-
 phases:
   pre_build:
     commands:

@@ -6,6 +6,8 @@ phases:
       - aws --version
       - REPO_URI=$APP_ECR_URI
       - IMAGE_TAG=rev-$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo Start the Docker daemon
+      - dockerd &> dockerd.log &
       - echo logging in to ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - echo Build started on `date`

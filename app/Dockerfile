@@ -1,4 +1,4 @@
-FROM amazonlinux:2023
+FROM public.ecr.aws/amazonlinux/amazonlinux:2023
 RUN yum check-update && yum update -y && yum install -y \
   fontconfig \
   freetype \

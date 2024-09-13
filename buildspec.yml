@@ -10,13 +10,13 @@ phases:
       - dockerd &> dockerd.log &
       - echo logging in to ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+  build:
+    commands:
       - echo Build started on `date`
       - docker build -t $REPO_URI:latest -t $REPO_URI:$IMAGE_TAG ./app
       - echo Build completed on `date`
-  build:
-    commands:
-      - docker images
   post_build:
     commands:
+      - echo TODO -> test the image
       - echo Pushing the image...
       - docker push $REPO_URI:$IMAGE_TAG

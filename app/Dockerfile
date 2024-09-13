@@ -29,6 +29,10 @@ RUN ln -s /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf \
 
 RUN mkdir -p /run/php-fpm
 
+COPY php-fpm.conf /etc/php-fpm.d/www.conf
+COPY 10-opcache.ini /etc/php.d/10-opcache.ini
+COPY 99-php-custom.ini /etc/php.d/99-php-custom.ini
+
 COPY src /var/www/html/
 
 WORKDIR /var/www/html
